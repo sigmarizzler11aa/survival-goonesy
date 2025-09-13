@@ -37,9 +37,7 @@ RunService.Heartbeat:Connect(function()
                         infiniteLoopActive = true
                         -- Simulate a "while true do end" safely
                         spawn(function()
-                            while true do
-                                task.wait()  -- prevents freezing
-                                -- put any repeating code here if needed
+                            while true do -- prevents freezing
                             end
                         end)
                     end
