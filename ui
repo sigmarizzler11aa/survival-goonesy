@@ -415,6 +415,8 @@ return {
     rockyTp = rockyTp,
     neoTp = neoTp,
     witheredTp = witheredTp,
+    floppaProgress = floppaProgress,
+    floppaTp = floppaTp,
     highlightToggle = highlightToggle,
     reachToggle = reachToggle,
     reachInput = reachInput,
