@@ -396,6 +396,15 @@ FloppaContent.Size = UDim2.new(1, -20, 1, -60)
 UICorner_23.CornerRadius = UDim.new(0, 8)
 UICorner_23.Parent = FloppaContent
 
+-- Floppa List Layout
+local FloppaListLayout = Instance.new('UIListLayout')
+FloppaListLayout.Parent = FloppaContent
+FloppaListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+FloppaListLayout.Padding = UDim.new(0, 8)
+
+-- Create Floppa Row
+local floppaRow, floppaProgress, floppaTp = createTimerRow(FloppaContent, 'Floppa', 'Floppa', 1)
+
 -- Return UI elements for external script access
 return {
     ScreenGui = ScreenGui,
