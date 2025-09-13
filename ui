@@ -1,0 +1,422 @@
+-- UI Creation Only
+local ScreenGui = Instance.new('ScreenGui')
+local MainFrame = Instance.new('Frame')
+local UICorner = Instance.new('UICorner')
+local TopBar = Instance.new('Frame')
+local UICorner_2 = Instance.new('UICorner')
+local Title = Instance.new('TextLabel')
+local CloseBtn = Instance.new('TextButton')
+local UICorner_3 = Instance.new('UICorner')
+local FloppaBtn = Instance.new('ImageButton')
+local UICorner_4 = Instance.new('UICorner')
+local SettingsBtn = Instance.new('TextButton')
+local UICorner_5 = Instance.new('UICorner')
+local Content = Instance.new('Frame')
+local UICorner_6 = Instance.new('UICorner')
+local TimersFrame = Instance.new('Frame')
+local UICorner_7 = Instance.new('UICorner')
+local UIListLayout = Instance.new('UIListLayout')
+local SettingsFrame = Instance.new('Frame')
+local UICorner_12 = Instance.new('UICorner')
+local SettingsTopBar = Instance.new('Frame')
+local UICorner_13 = Instance.new('UICorner')
+local SettingsTitle = Instance.new('TextLabel')
+local BackBtn = Instance.new('TextButton')
+local UICorner_14 = Instance.new('UICorner')
+local OptionsContainer = Instance.new('Frame')
+local UICorner_15 = Instance.new('UICorner')
+local UIListLayout_2 = Instance.new('UIListLayout')
+local FloppaFrame = Instance.new('Frame')
+local UICorner_20 = Instance.new('UICorner')
+local FloppaTopBar = Instance.new('Frame')
+local UICorner_21 = Instance.new('UICorner')
+local FloppaTitle = Instance.new('TextLabel')
+local FloppaBackBtn = Instance.new('TextButton')
+local UICorner_22 = Instance.new('UICorner')
+local FloppaContent = Instance.new('Frame')
+local UICorner_23 = Instance.new('UICorner')
+
+-- Properties
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild('PlayerGui')
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGui.ResetOnSpawn = false
+
+-- Main Frame
+MainFrame.Name = 'MainFrame'
+MainFrame.Parent = ScreenGui
+MainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 30)
+MainFrame.BorderSizePixel = 0
+MainFrame.Position = UDim2.new(0.3, 0, 0.25, 0)
+MainFrame.Size = UDim2.new(0, 320, 0, 280)
+MainFrame.Active = true
+MainFrame.Draggable = true
+
+UICorner.CornerRadius = UDim.new(0, 12)
+UICorner.Parent = MainFrame
+
+-- Top Bar
+TopBar.Name = 'TopBar'
+TopBar.Parent = MainFrame
+TopBar.BackgroundColor3 = Color3.fromRGB(35, 35, 40)
+TopBar.BorderSizePixel = 0
+TopBar.Size = UDim2.new(1, 0, 0, 40)
+
+UICorner_2.CornerRadius = UDim.new(0, 12)
+UICorner_2.Parent = TopBar
+
+Title.Name = 'Title'
+Title.Parent = TopBar
+Title.BackgroundTransparency = 1
+Title.Position = UDim2.new(0, 15, 0, 0)
+Title.Size = UDim2.new(0, 150, 1, 0)
+Title.Font = Enum.Font.GothamBold
+Title.Text = 'Lucky Blocks'
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.TextSize = 14
+Title.TextXAlignment = Enum.TextXAlignment.Left
+
+CloseBtn.Name = 'CloseBtn'
+CloseBtn.Parent = TopBar
+CloseBtn.BackgroundColor3 = Color3.fromRGB(220, 50, 47)
+CloseBtn.BorderSizePixel = 0
+CloseBtn.Position = UDim2.new(1, -35, 0, 8)
+CloseBtn.Size = UDim2.new(0, 24, 0, 24)
+CloseBtn.Font = Enum.Font.GothamBold
+CloseBtn.Text = '×'
+CloseBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+CloseBtn.TextSize = 16
+
+UICorner_3.CornerRadius = UDim.new(0, 6)
+UICorner_3.Parent = CloseBtn
+
+-- Floppa Button
+FloppaBtn.Name = 'FloppaBtn'
+FloppaBtn.Parent = TopBar
+FloppaBtn.BackgroundColor3 = Color3.fromRGB(255, 165, 0)
+FloppaBtn.BorderSizePixel = 0
+FloppaBtn.Position = UDim2.new(1, -95, 0, 8)
+FloppaBtn.Size = UDim2.new(0, 24, 0, 24)
+FloppaBtn.Image = 'rbxassetid://6837646276'
+FloppaBtn.ImageColor3 = Color3.fromRGB(255, 255, 255)
+
+UICorner_4.CornerRadius = UDim.new(0, 6)
+UICorner_4.Parent = FloppaBtn
+
+SettingsBtn.Name = 'SettingsBtn'
+SettingsBtn.Parent = TopBar
+SettingsBtn.BackgroundColor3 = Color3.fromRGB(60, 120, 255)
+SettingsBtn.BorderSizePixel = 0
+SettingsBtn.Position = UDim2.new(1, -65, 0, 8)
+SettingsBtn.Size = UDim2.new(0, 24, 0, 24)
+SettingsBtn.Font = Enum.Font.GothamBold
+SettingsBtn.Text = '⚙'
+SettingsBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+SettingsBtn.TextSize = 12
+
+UICorner_5.CornerRadius = UDim.new(0, 6)
+UICorner_5.Parent = SettingsBtn
+
+-- Content Area
+Content.Name = 'Content'
+Content.Parent = MainFrame
+Content.BackgroundTransparency = 1
+Content.Position = UDim2.new(0, 10, 0, 50)
+Content.Size = UDim2.new(1, -20, 1, -60)
+
+-- Timers Frame
+TimersFrame.Name = 'TimersFrame'
+TimersFrame.Parent = Content
+TimersFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 35)
+TimersFrame.BorderSizePixel = 0
+TimersFrame.Size = UDim2.new(1, 0, 1, 0)
+
+UICorner_7.CornerRadius = UDim.new(0, 8)
+UICorner_7.Parent = TimersFrame
+
+UIListLayout.Parent = TimersFrame
+UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UIListLayout.Padding = UDim.new(0, 8)
+
+-- Timer Rows Function
+function createTimerRow(parent, name, label, layoutOrder)
+    local row = Instance.new('Frame')
+    local rowLabel = Instance.new('TextLabel')
+    local timer = Instance.new('TextLabel')
+    local tpBtn = Instance.new('TextButton')
+    local corner = Instance.new('UICorner')
+    local btnCorner = Instance.new('UICorner')
+    
+    row.Name = name .. 'Row'
+    row.Parent = parent
+    row.BackgroundColor3 = Color3.fromRGB(40, 40, 45)
+    row.BorderSizePixel = 0
+    row.Size = UDim2.new(1, -16, 0, 45)
+    row.LayoutOrder = layoutOrder
+    
+    corner.CornerRadius = UDim.new(0, 6)
+    corner.Parent = row
+    
+    rowLabel.Name = name .. 'Label'
+    rowLabel.Parent = row
+    rowLabel.BackgroundTransparency = 1
+    rowLabel.Position = UDim2.new(0, 12, 0, 0)
+    rowLabel.Size = UDim2.new(0, 100, 1, 0)
+    rowLabel.Font = Enum.Font.Gotham
+    rowLabel.Text = label
+    rowLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    rowLabel.TextSize = 13
+    rowLabel.TextXAlignment = Enum.TextXAlignment.Left
+    
+    timer.Name = name .. 'Timer'
+    timer.Parent = row
+    timer.BackgroundTransparency = 1
+    timer.Position = UDim2.new(0, 120, 0, 0)
+    timer.Size = UDim2.new(0, 100, 1, 0)
+    timer.Font = Enum.Font.GothamBold
+    timer.Text = '00:00'
+    timer.TextColor3 = Color3.fromRGB(100, 200, 255)
+    timer.TextSize = 13
+    timer.TextXAlignment = Enum.TextXAlignment.Left
+    
+    tpBtn.Name = name .. 'Tp'
+    tpBtn.Parent = row
+    tpBtn.BackgroundColor3 = Color3.fromRGB(76, 175, 80)
+    tpBtn.BorderSizePixel = 0
+    tpBtn.Position = UDim2.new(1, -50, 0, 8)
+    tpBtn.Size = UDim2.new(0, 35, 0, 28)
+    tpBtn.Font = Enum.Font.GothamBold
+    tpBtn.Text = 'TP'
+    tpBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    tpBtn.TextSize = 12
+    
+    btnCorner.CornerRadius = UDim.new(0, 4)
+    btnCorner.Parent = tpBtn
+    
+    return row, timer, tpBtn
+end
+
+local jungleRow, jungleTimer, jungleTp = createTimerRow(TimersFrame, 'Jungle', 'Jungle', 1)
+local rockyRow, rockyTimer, rockyTp = createTimerRow(TimersFrame, 'Rocky', 'Rocky Rampage', 2)
+local neoRow, neoTimer, neoTp = createTimerRow(TimersFrame, 'Neo', 'Neo Nexus', 3)
+local witheredRow, witheredTimer, witheredTp = createTimerRow(TimersFrame, 'Withered', 'Withered Waters', 4)
+
+-- Settings Frame
+SettingsFrame.Name = 'SettingsFrame'
+SettingsFrame.Parent = ScreenGui
+SettingsFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 30)
+SettingsFrame.BorderSizePixel = 0
+SettingsFrame.Position = UDim2.new(0.3, 0, 0.25, 0)
+SettingsFrame.Size = UDim2.new(0, 320, 0, 280)
+SettingsFrame.Visible = false
+SettingsFrame.Active = true
+SettingsFrame.Draggable = true
+
+UICorner_12.CornerRadius = UDim.new(0, 12)
+UICorner_12.Parent = SettingsFrame
+
+-- Settings Top Bar
+SettingsTopBar.Name = 'SettingsTopBar'
+SettingsTopBar.Parent = SettingsFrame
+SettingsTopBar.BackgroundColor3 = Color3.fromRGB(35, 35, 40)
+SettingsTopBar.BorderSizePixel = 0
+SettingsTopBar.Size = UDim2.new(1, 0, 0, 40)
+
+UICorner_13.CornerRadius = UDim.new(0, 12)
+UICorner_13.Parent = SettingsTopBar
+
+SettingsTitle.Name = 'SettingsTitle'
+SettingsTitle.Parent = SettingsTopBar
+SettingsTitle.BackgroundTransparency = 1
+SettingsTitle.Position = UDim2.new(0, 15, 0, 0)
+SettingsTitle.Size = UDim2.new(0, 150, 1, 0)
+SettingsTitle.Font = Enum.Font.GothamBold
+SettingsTitle.Text = 'Settings / Misc'
+SettingsTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+SettingsTitle.TextSize = 14
+SettingsTitle.TextXAlignment = Enum.TextXAlignment.Left
+
+BackBtn.Name = 'BackBtn'
+BackBtn.Parent = SettingsTopBar
+BackBtn.BackgroundColor3 = Color3.fromRGB(100, 100, 110)
+BackBtn.BorderSizePixel = 0
+BackBtn.Position = UDim2.new(1, -35, 0, 8)
+BackBtn.Size = UDim2.new(0, 24, 0, 24)
+BackBtn.Font = Enum.Font.GothamBold
+BackBtn.Text = '←'
+BackBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+BackBtn.TextSize = 14
+
+UICorner_14.CornerRadius = UDim.new(0, 6)
+UICorner_14.Parent = BackBtn
+
+-- Options Container
+OptionsContainer.Name = 'OptionsContainer'
+OptionsContainer.Parent = SettingsFrame
+OptionsContainer.BackgroundColor3 = Color3.fromRGB(30, 30, 35)
+OptionsContainer.BorderSizePixel = 0
+OptionsContainer.Position = UDim2.new(0, 10, 0, 50)
+OptionsContainer.Size = UDim2.new(1, -20, 1, -60)
+
+UICorner_15.CornerRadius = UDim.new(0, 8)
+UICorner_15.Parent = OptionsContainer
+
+UIListLayout_2.Parent = OptionsContainer
+UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
+UIListLayout_2.Padding = UDim.new(0, 10)
+
+-- Options Function
+function createOption(parent, name, labelText, layoutOrder, hasInput)
+    local option = Instance.new('Frame')
+    local toggle = Instance.new('TextButton')
+    local corner = Instance.new('UICorner')
+    local toggleCorner = Instance.new('UICorner')
+    local label = Instance.new('TextLabel')
+    local input
+    
+    option.Name = name .. 'Option'
+    option.Parent = parent
+    option.BackgroundColor3 = Color3.fromRGB(40, 40, 45)
+    option.BorderSizePixel = 0
+    option.Size = UDim2.new(1, -16, 0, 50)
+    option.LayoutOrder = layoutOrder
+    
+    corner.CornerRadius = UDim.new(0, 6)
+    corner.Parent = option
+    
+    toggle.Name = name .. 'Toggle'
+    toggle.Parent = option
+    toggle.BackgroundColor3 = Color3.fromRGB(70, 70, 75)
+    toggle.BorderSizePixel = 0
+    toggle.Position = UDim2.new(0, 12, 0, 13)
+    toggle.Size = UDim2.new(0, 24, 0, 24)
+    toggle.Font = Enum.Font.GothamBold
+    toggle.Text = ''
+    toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
+    toggle.TextSize = 12
+    
+    toggleCorner.CornerRadius = UDim.new(0, 4)
+    toggleCorner.Parent = toggle
+    
+    label.Name = name .. 'Label'
+    label.Parent = option
+    label.BackgroundTransparency = 1
+    label.Position = UDim2.new(0, 45, 0, 0)
+    label.Size = UDim2.new(0, hasInput and 150 or 200, 1, 0)
+    label.Font = Enum.Font.Gotham
+    label.Text = labelText
+    label.TextColor3 = Color3.fromRGB(255, 255, 255)
+    label.TextSize = 13
+    label.TextXAlignment = Enum.TextXAlignment.Left
+    
+    if hasInput then
+        input = Instance.new('TextBox')
+        local inputCorner = Instance.new('UICorner')
+        
+        input.Name = name .. 'Input'
+        input.Parent = option
+        input.BackgroundColor3 = Color3.fromRGB(50, 50, 55)
+        input.BorderSizePixel = 0
+        input.Position = UDim2.new(1, -80, 0, 13)
+        input.Size = UDim2.new(0, 60, 0, 24)
+        input.Font = Enum.Font.Gotham
+        input.PlaceholderText = '3.5'
+        input.Text = '3.5'
+        input.TextColor3 = Color3.fromRGB(255, 255, 255)
+        input.TextSize = 12
+        input.TextXAlignment = Enum.TextXAlignment.Center
+        
+        inputCorner.CornerRadius = UDim.new(0, 4)
+        inputCorner.Parent = input
+    end
+    
+    return option, toggle, input
+end
+
+local highlightOption, highlightToggle = createOption(OptionsContainer, 'Highlight', 'Highlight Lucky Blocks', 1, false)
+local reachOption, reachToggle, reachInput = createOption(OptionsContainer, 'Reach', 'Enable Reach', 2, true)
+local infYieldOption, infYieldToggle = createOption(OptionsContainer, 'InfYield', 'Load Infinite Yield', 3, false)
+
+-- Floppa Frame
+FloppaFrame.Name = 'FloppaFrame'
+FloppaFrame.Parent = ScreenGui
+FloppaFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 30)
+FloppaFrame.BorderSizePixel = 0
+FloppaFrame.Position = UDim2.new(0.3, 0, 0.25, 0)
+FloppaFrame.Size = UDim2.new(0, 320, 0, 280)
+FloppaFrame.Visible = false
+FloppaFrame.Active = true
+FloppaFrame.Draggable = true
+
+UICorner_20.CornerRadius = UDim.new(0, 12)
+UICorner_20.Parent = FloppaFrame
+
+-- Floppa Top Bar
+FloppaTopBar.Name = 'FloppaTopBar'
+FloppaTopBar.Parent = FloppaFrame
+FloppaTopBar.BackgroundColor3 = Color3.fromRGB(35, 35, 40)
+FloppaTopBar.BorderSizePixel = 0
+FloppaTopBar.Size = UDim2.new(1, 0, 0, 40)
+
+UICorner_21.CornerRadius = UDim.new(0, 12)
+UICorner_21.Parent = FloppaTopBar
+
+FloppaTitle.Name = 'FloppaTitle'
+FloppaTitle.Parent = FloppaTopBar
+FloppaTitle.BackgroundTransparency = 1
+FloppaTitle.Position = UDim2.new(0, 15, 0, 0)
+FloppaTitle.Size = UDim2.new(0, 150, 1, 0)
+FloppaTitle.Font = Enum.Font.GothamBold
+FloppaTitle.Text = 'Floppa Zone'
+FloppaTitle.TextColor3 = Color3.fromRGB(255, 165, 0)
+FloppaTitle.TextSize = 14
+FloppaTitle.TextXAlignment = Enum.TextXAlignment.Left
+
+FloppaBackBtn.Name = 'FloppaBackBtn'
+FloppaBackBtn.Parent = FloppaTopBar
+FloppaBackBtn.BackgroundColor3 = Color3.fromRGB(100, 100, 110)
+FloppaBackBtn.BorderSizePixel = 0
+FloppaBackBtn.Position = UDim2.new(1, -35, 0, 8)
+FloppaBackBtn.Size = UDim2.new(0, 24, 0, 24)
+FloppaBackBtn.Font = Enum.Font.GothamBold
+FloppaBackBtn.Text = '←'
+FloppaBackBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+FloppaBackBtn.TextSize = 14
+
+UICorner_22.CornerRadius = UDim.new(0, 6)
+UICorner_22.Parent = FloppaBackBtn
+
+-- Floppa Content
+FloppaContent.Name = 'FloppaContent'
+FloppaContent.Parent = FloppaFrame
+FloppaContent.BackgroundColor3 = Color3.fromRGB(30, 30, 35)
+FloppaContent.BorderSizePixel = 0
+FloppaContent.Position = UDim2.new(0, 10, 0, 50)
+FloppaContent.Size = UDim2.new(1, -20, 1, -60)
+
+UICorner_23.CornerRadius = UDim.new(0, 8)
+UICorner_23.Parent = FloppaContent
+
+-- Return UI elements for external script access
+return {
+    ScreenGui = ScreenGui,
+    MainFrame = MainFrame,
+    SettingsFrame = SettingsFrame,
+    FloppaFrame = FloppaFrame,
+    CloseBtn = CloseBtn,
+    SettingsBtn = SettingsBtn,
+    FloppaBtn = FloppaBtn,
+    BackBtn = BackBtn,
+    FloppaBackBtn = FloppaBackBtn,
+    jungleTimer = jungleTimer,
+    rockyTimer = rockyTimer,
+    neoTimer = neoTimer,
+    witheredTimer = witheredTimer,
+    jungleTp = jungleTp,
+    rockyTp = rockyTp,
+    neoTp = neoTp,
+    witheredTp = witheredTp,
+    highlightToggle = highlightToggle,
+    reachToggle = reachToggle,
+    reachInput = reachInput,
+    infYieldToggle = infYieldToggle
+}
