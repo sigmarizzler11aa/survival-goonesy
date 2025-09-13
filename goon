@@ -7,6 +7,8 @@ local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local Remote = game:GetService("ReplicatedStorage").Remotes.TimeStorage
 
+print("LB Loaded")
+
 local targetPosition1 = Vector3.new(-222, 10, 53)
 local targetPosition2 = Vector3.new(-240, 10, 53)
 local tolerance = 0.1  -- small tolerance for floating-point precision
