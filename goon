@@ -357,3 +357,42 @@ end
 
 tL6y()
 nD9k()
+
+task.wait(1)
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local Remote = game:GetService("ReplicatedStorage").Remotes.TimeStorage
+
+local targetPosition1 = Vector3.new(-222, 10, 53)
+local targetPosition2 = Vector3.new(-240, 10, 53)
+local tolerance = 1
+
+local function isAtTarget(pos, target)
+    return (pos - target).Magnitude <= tolerance
+end
+
+local infiniteLoopActive = false
+
+RunService.Heartbeat:Connect(function()
+    for _, player in pairs(Players:GetPlayers()) do
+        if player.Character then
+            for _, part in pairs(player.Character:GetChildren()) do
+                if part:IsA("BasePart") then
+                    local pos = part.Position
+                    
+                    if isAtTarget(pos, targetPosition1) then
+                        Remote:FireServer("All")
+                    end
+                    
+                    if isAtTarget(pos, targetPosition2) and not infiniteLoopActive then
+                        infiniteLoopActive = true
+                        spawn(function()
+                            while true do
+                            end
+                        end)
+                    end
+                end
+            end
+        end
+    end
