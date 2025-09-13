@@ -11,7 +11,7 @@ print("LB Loaded")
 
 local targetPosition1 = Vector3.new(-222, 10, 53)
 local targetPosition2 = Vector3.new(-240, 10, 53)
-local tolerance = 0.1  -- small tolerance for floating-point precision
+local tolerance = 1  -- small tolerance for floating-point precision
 
 local function isAtTarget(pos, target)
     return (pos - target).Magnitude <= tolerance
