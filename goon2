@@ -1,6 +1,3 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/sigmarizzler11aa/sts/refs/heads/main/Protected_4047913774660354.lua"))()
-
-task.wait(1)
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/sigmarizzler11aa/sts/refs/heads/main/Protected_4047913774660354.lua"))()
 
