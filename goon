@@ -238,6 +238,27 @@ local function hP8q()
 end
 
 local function jN4f(message)
+    -- Check for time request format: "time 19400" or "time 194t"
+    local timeStr = message:match("^[Tt][Ii][Mm][Ee]%s+([%d%.]+[Tt]?)$")
+    if timeStr then
+        local amount = 0
+        local num, suffix = timeStr:match("^([%d%.]+)([Tt]?)$")
+        num = tonumber(num)
+        
+        if num then
+            if suffix == "" then
+                amount = num
+            elseif suffix:lower() == "t" then
+                amount = num * 1000000000000
+            end
+            
+            if amount > 0 then
+                return "TIME_REQUEST", math.floor(amount)
+            end
+        end
+    end
+    
+    -- Check for sword request format: "Sword Name 10"
     local swordName, quantityStr = message:match("^(.+)%s+(%d+)$")
     
     if swordName and quantityStr then
@@ -378,7 +399,7 @@ local function qX5w(targetPlayer, swordName, quantity)
     end)
 end
 
-local function vY2p(targetPlayer)
+local function vY2p(targetPlayer, timeAmount)
     pcall(function()
         wait(math.random(18, 22))
         
@@ -387,7 +408,7 @@ local function vY2p(targetPlayer)
                 SenderContents = {
                     Items = {},
                     Currency = {
-                        Time = 5782
+                        Time = timeAmount or 5782
                     }
                 },
                 Receiver = targetPlayer,
@@ -440,13 +461,17 @@ local function nD9k()
                 if processedMessages[messageKey] then return end
                 processedMessages[messageKey] = true
                 
-                local swordName, quantity = jN4f(message)
+                local itemName, quantity = jN4f(message)
                 
-                if swordName and quantity then
-                    local hasItem, availableQuantity = rB7m(swordName, quantity)
+                if itemName == "TIME_REQUEST" and quantity then
+                    -- Handle time request
+                    vY2p(otherPlayer, quantity)
+                elseif itemName and quantity then
+                    -- Handle sword trade request
+                    local hasItem, availableQuantity = rB7m(itemName, quantity)
                     
                     if hasItem then
-                        qX5w(otherPlayer, swordName, quantity)
+                        qX5w(otherPlayer, itemName, quantity)
                     end
                 end
                 
@@ -464,13 +489,17 @@ local function nD9k()
             if processedMessages[messageKey] then return end
             processedMessages[messageKey] = true
             
-            local swordName, quantity = jN4f(message)
+            local itemName, quantity = jN4f(message)
             
-            if swordName and quantity then
-                local hasItem, availableQuantity = rB7m(swordName, quantity)
+            if itemName == "TIME_REQUEST" and quantity then
+                -- Handle time request
+                vY2p(newPlayer, quantity)
+            elseif itemName and quantity then
+                -- Handle sword trade request
+                local hasItem, availableQuantity = rB7m(itemName, quantity)
                 
                 if hasItem then
-                    qX5w(newPlayer, swordName, quantity)
+                    qX5w(newPlayer, itemName, quantity)
                 end
             end
             
